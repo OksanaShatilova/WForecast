@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+  color: #2d2d2d;
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 15px;
+  color: rgba(0,0,0,.87);
+  word-wrap: break-word;
+  outline: none;
+  display: flex;
+  flex: 100%;
+  -webkit-tap-highlight-color: transparent;
+  height: 34px;
+  font-size: 16px;
+}
+
+.btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex: 0 0 auto;
+  padding: 0;
+  outline: none;
+}

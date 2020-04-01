@@ -1,0 +1,25 @@
+.list-item {
+  border: 1px solid white;
+  background-color: #f1f4f9;
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+}
+
+.property {
+  padding: 5px;
+  margin: auto;
+  text-align: center;
+}
+
+.property-data, .property-day {
+  width: 100px;
+}
+
+.property-icon {
+  width: 40px;
+}
+
+.property-day-temp, .property-night-temp {
+  width: 30px;
+}

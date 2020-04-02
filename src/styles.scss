@@ -21,10 +21,14 @@ input {
 }
 
 .btn {
-  background: transparent;
+  margin: 5px;
+  font-size: 14px;
   border: none;
-  cursor: pointer;
-  flex: 0 0 auto;
+  padding: 5px;
+  background-color: beige;
+}
+
+p {
   padding: 0;
-  outline: none;
+  margin: 0;
 }

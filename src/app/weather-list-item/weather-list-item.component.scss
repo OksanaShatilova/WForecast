@@ -1,15 +1,9 @@
-.list-item {
-  border: 1px solid white;
-  background-color: #f1f4f9;
-  width: 100%;
-  min-height: 50px;
-  display: flex;
-}
-
 .property {
   padding: 5px;
   margin: auto;
-  text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 
 .property-data, .property-day {
@@ -17,9 +11,21 @@
 }
 
 .property-icon {
-  width: 40px;
+  width: 50px;
 }
 
 .property-day-temp, .property-night-temp {
-  width: 30px;
+  width: 65px;
+}
+
+.list-item {
+  border-bottom: 2px solid white;
+  background-color: #f1f4f9;
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+
+  &:hover {
+    background-color: #e3ebf8;
+  }
 }

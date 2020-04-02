@@ -7,6 +7,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { WeatherListComponent } from './weather-list/weather-list.component';
 import { WeatherListItemComponent } from './weather-list-item/weather-list-item.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

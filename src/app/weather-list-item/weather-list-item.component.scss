@@ -1,21 +1,30 @@
 .property {
   padding: 5px;
   margin: auto;
-  justify-content: center;
   display: flex;
   align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-.property-data, .property-day {
+.property-data {
   width: 100px;
+}
+
+.property-day {
+  width: 30px;
 }
 
 .property-icon {
   width: 50px;
 }
 
-.property-day-temp, .property-night-temp {
-  width: 65px;
+.property-day-temp {
+  width: 50px;
+}
+
+.property-description {
+  width: 150px;
 }
 
 .list-item {

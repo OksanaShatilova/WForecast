@@ -18,10 +18,13 @@
     </div>
   </div>
 </div>
-<div class="weather-list">
+<div class="weather-list" *ngIf="forecast; else loading">
   <app-weather-list-item
     *ngFor="let day of forecast.data"
     [day]="day">
   </app-weather-list-item>
 </div>
 
+<ng-template #loading>
+  <p class="text-center">Loading...</p>
+</ng-template>

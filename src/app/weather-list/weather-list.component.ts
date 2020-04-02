@@ -14,20 +14,21 @@ export class WeatherListComponent implements OnInit {
   sortParameters: boolean;
   sortDirection: boolean;
   forecast: any;
+  daysOfWeek: Array<string>
 
   ngOnInit(): void {
     this.sortParameters = false;
     this.sortDirection = false;
+    this.daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     this.values = [
       'Date',
-      'Day t',
-      'Night t'
+      'Temperature',
     ];
     this.value = this.values[0];
     this.forecastService.getForecast('London')
       .subscribe(response => {
         this.forecast = response;
-        console.log(this.forecast.data);
+        console.log(response);
       });
   }
 

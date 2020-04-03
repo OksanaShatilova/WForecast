@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ForecastService} from '../forecast.service';
 
 @Component({
@@ -8,14 +8,35 @@ import {ForecastService} from '../forecast.service';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  form: FormGroup
-  constructor() {
-  }
+  form: FormGroup;
+  forecast: any;
+  loading = false;
+  error = '';
+  constructor(private forecastService: ForecastService) {}
   ngOnInit() {
-    this.form = new FormGroup({});
+    this.form = new FormGroup({
+      city: new FormControl('', [Validators.required])
+    });
   }
 
   submit() {
-    console.log('hhh');
+    this.error = '';
+    this.loading = true;
+    this.forecast = null;
+    this.forecastService.getForecast(this.form.get('city').value)
+      .subscribe(response => {
+        if (response === null) {
+          this.error = 'City is not found';
+        }
+        this.forecast = response;
+        this.loading = false;
+      }, error => {
+        this.error = error.message;
+        this.loading = false;
+    });
+  }
+
+  clearMessages() {
+    this.error = '';
   }
 }

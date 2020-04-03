@@ -1,7 +1,5 @@
 .form {
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
+  margin-top: 70px;
   width: 100%;
 }
 
@@ -27,6 +25,10 @@
   fill: #4285f4;
   margin: auto;
   margin-right: 10px;
+
+  &:disabled {
+    fill: #ababab;;
+  }
 }
 
 .container {
@@ -36,17 +38,38 @@
   margin: 0 auto;
 }
 
-h1 {
-  padding: 0;
-  margin: 0;
-  text-align: center;
+.header {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  position: relative;
 }
 
 .title {
-  margin-top: 100px;
   font-size: 40px;
 }
 
 .form-control {
   width: 100%;
+}
+
+.message {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.error {
+  color: brown;
+}
+
+.city-name {
+  position: absolute;
+  bottom: -25px;
+  font-size: 20px;
+  color: #ababab;
+}
+
+.validation {
+  padding: 5px 10px;
+  color: brown;
 }

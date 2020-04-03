@@ -1,9 +1,12 @@
 <div class="container">
-  <h1 class="title">Weather Forecast</h1>
+  <div class="header">
+    <h1 class="title">Weather Forecast</h1>
+    <h2 *ngIf="forecast" class="city-name">{{forecast.city_name}}</h2>
+  </div>
   <form class="form" [formGroup]="form" (ngSubmit)="submit()">
     <div class="form-control">
-      <input type="text" placeholder="City">
-      <button class="btn btn-search" type="submit">
+      <input type="text" placeholder="City" formControlName="city" (click)="clearMessages()">
+      <button class="btn btn-search" type="submit" [disabled]="form.invalid">
         <span>
           <svg focusable="false" viewBox="0 0 24 24">
             <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0
@@ -14,7 +17,16 @@
         </span>
       </button>
     </div>
+    <div *ngIf="form.get('city').invalid && form.get('city').touched">
+      <p *ngIf="form.get('city').errors.required" class="validation">Please enter a city name</p>
+    </div>
   </form>
-  <app-weather-list></app-weather-list>
+  <app-weather-list [forecast]="forecast" *ngIf="forecast"></app-weather-list>
+  <div *ngIf="loading" class="message">
+    <p class="text-center">Loading...</p>
+  </div>
+  <div *ngIf="error" class="message error">
+    <p>{{error}}</p>
+  </div>
 </div>
 

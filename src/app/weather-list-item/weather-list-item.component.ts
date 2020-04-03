@@ -7,9 +7,15 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class WeatherListItemComponent implements OnInit {
   @Input() day;
+  daysOfWeek: Array<string> = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  getDayOfWeek(data: string) {
+    const day = new Date(data).getDay();
+    return this.daysOfWeek[day];
+  }
 }

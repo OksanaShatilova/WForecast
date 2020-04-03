@@ -12,15 +12,16 @@
 }
 
 .property-day {
-  width: 30px;
+  width: 40px;
 }
 
 .property-icon {
   width: 50px;
+  justify-content: center;
 }
 
 .property-day-temp {
-  width: 50px;
+  width: 30px;
 }
 
 .property-description {
@@ -37,4 +38,9 @@
   &:hover {
     background-color: #e3ebf8;
   }
+}
+
+.weather-icon {
+  width: 50px;
+  height: 50px;
 }

@@ -1,7 +1,9 @@
 <div class="list-item">
   <div class="property property-data">{{day.datetime}}</div>
-  <div class="property property-day">Wed.</div>
-  <div class="property property-icon">X</div>
+  <div class="property property-day">{{getDayOfWeek(day.datetime)}}.</div>
+  <div class="property property-icon">
+    <img class="weather-icon" src="https://www.weatherbit.io/static/img/icons/{{day.weather.icon}}.png">
+  </div>
   <div class="property property-description">{{day.weather.description}}</div>
-  <div class="property property-day-temp">{{day.temp}}&#176;</div>
+  <div class="property property-day-temp">{{day.temp | number:'1.0-0'}}&#176;</div>
 </div>

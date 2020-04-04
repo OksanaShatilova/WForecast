@@ -10,7 +10,7 @@ export class WeatherListComponent implements OnInit {
   constructor() {}
 
   parameters: object;
-  parameter: string;
+  parameterKey: string;
   sortParametersList: boolean;
   sortDirection: boolean;
   objectKeysOfParameters: Array<string>;
@@ -23,7 +23,7 @@ export class WeatherListComponent implements OnInit {
       Temperature: 'temp'
     };
     this.objectKeysOfParameters = Object.keys(this.parameters);
-    this.parameter = this.objectKeysOfParameters[0];
+    this.parameterKey = this.objectKeysOfParameters[0];
   }
 
   showSortParameters() {
@@ -36,17 +36,18 @@ export class WeatherListComponent implements OnInit {
     if (this.sortParametersList) {
       this.showSortParameters();
     }
-    this.sortByParameter(this.parameters[this.parameter]);
+    this.sortByParameter(this.parameterKey);
   }
 
-  sortByParameter(parameter: string) {
-    this.parameter = Object.keys(this.parameters).find(key => this.parameters[key] === parameter);
+  sortByParameter(currentKey: string) {
+    this.parameterKey = currentKey;
+    const parameterValue = Object.values(this.parameters).find(value => value === this.parameters[currentKey]);
     this.showSortParameters();
     this.forecast.data.sort((a, b) => {
-      if (a[parameter] > b[parameter]) {
+      if (a[parameterValue] > b[parameterValue]) {
         return this.sortDirection ? -1 : 1;
       }
-      if (a[parameter] < b[parameter]) {
+      if (a[parameterValue] < b[parameterValue]) {
         return this.sortDirection ? 1 : -1;
       }
       return 0;

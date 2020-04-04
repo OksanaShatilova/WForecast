@@ -1,11 +1,11 @@
 <div class="container">
   <div class="header">
     <h1 class="title">Weather Forecast</h1>
-    <h2 *ngIf="forecast" class="city-name">{{forecast.city_name}}</h2>
+    <h2 class="city-name">{{cityName | titlecase}}</h2>
   </div>
   <form class="form" [formGroup]="form" (ngSubmit)="submit()">
     <div class="form-control">
-      <input type="text" placeholder="City" formControlName="city" (click)="clearMessages()">
+      <input type="text" placeholder="City" formControlName="city">
       <button class="btn btn-search" type="submit" [disabled]="form.invalid">
         <span>
           <svg focusable="false" viewBox="0 0 24 24">
@@ -21,12 +21,10 @@
       <p *ngIf="form.get('city').errors.required" class="validation">Please enter a city name</p>
     </div>
   </form>
-  <app-weather-list [forecast]="forecast" *ngIf="forecast"></app-weather-list>
-  <div *ngIf="loading" class="message">
-    <p class="text-center">Loading...</p>
-  </div>
-  <div *ngIf="error" class="message error">
-    <p>{{error}}</p>
+  <router-outlet></router-outlet>
+
+  <div *ngIf="s" class="message error">
+    <p>error</p>
   </div>
 </div>
 

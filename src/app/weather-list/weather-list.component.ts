@@ -1,4 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ForecastService} from '../forecast.service';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-weather-list',
@@ -6,13 +8,14 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./weather-list.component.scss']
 })
 export class WeatherListComponent implements OnInit {
-  @Input() forecast;
-  constructor() {}
+  constructor(private forecastService: ForecastService, private route: ActivatedRoute) {}
 
   parameters: object;
   parameterKey: string;
   sortParametersList: boolean;
   sortDirection: boolean;
+  forecast: object;
+  days = 14;
   objectKeysOfParameters: Array<string>;
 
   ngOnInit(): void {
@@ -24,11 +27,20 @@ export class WeatherListComponent implements OnInit {
     };
     this.objectKeysOfParameters = Object.keys(this.parameters);
     this.parameterKey = this.objectKeysOfParameters[0];
+    this.route.params.subscribe((params: Params) => {
+      this.forecast = null;
+      this.forecastService.getForecast(params.city, this.days)
+        .subscribe(response => {
+          this.forecast = response;
+        });
+    });
   }
 
   showSortParameters() {
     this.sortParametersList = !this.sortParametersList;
   }
+
+  // сортировка при смене направления (возрастание/убывание)
 
   toggleSort(event: Event) {
     event.stopPropagation();
@@ -38,6 +50,8 @@ export class WeatherListComponent implements OnInit {
     }
     this.sortByParameter(this.parameterKey);
   }
+
+  // сортировка при выборе параметра
 
   sortByParameter(currentKey: string) {
     this.parameterKey = currentKey;

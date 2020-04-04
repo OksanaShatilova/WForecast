@@ -36,13 +36,11 @@ export class WeatherListComponent implements OnInit {
     if (this.sortParametersList) {
       this.showSortParameters();
     }
-    this.sortByParameter(this.parameter);
+    this.sortByParameter(this.parameters[this.parameter]);
   }
 
-  sortByParameter(parameter: string, key?: string) {
-    if (key) {
-      this.parameter = key;
-    }
+  sortByParameter(parameter: string) {
+    this.parameter = Object.keys(this.parameters).find(key => this.parameters[key] === parameter);
     this.showSortParameters();
     this.forecast.data.sort((a, b) => {
       if (a[parameter] > b[parameter]) {

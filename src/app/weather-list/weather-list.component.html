@@ -12,7 +12,7 @@
       <p class="sort-parameter"
          *ngFor="let key of objectKeysOfParameters"
          [ngClass]="{'last-item': key === objectKeysOfParameters[objectKeysOfParameters.length - 1]}"
-         (click)="sortByParameter(parameters[key], key)">
+         (click)="sortByParameter(parameters[key])">
         {{key}}
       </p>
     </div>

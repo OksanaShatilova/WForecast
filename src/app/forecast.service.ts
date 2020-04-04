@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 export class ForecastService {
   constructor(private http: HttpClient) {
   }
-  getForecast(city: string): Observable<any> {
-    return this.http.get(`https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&days=14`);
+  getForecast(city: string, days: number): Observable<any> {
+    return this.http.get(`https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&days=${days}`);
   }
 }

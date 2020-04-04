@@ -12,6 +12,7 @@ export class HomePageComponent implements OnInit {
   forecast: any;
   loading = false;
   error = '';
+  days = 14;
   constructor(private forecastService: ForecastService) {}
   ngOnInit() {
     this.form = new FormGroup({
@@ -23,7 +24,7 @@ export class HomePageComponent implements OnInit {
     this.error = '';
     this.loading = true;
     this.forecast = null;
-    this.forecastService.getForecast(this.form.get('city').value)
+    this.forecastService.getForecast(this.form.get('city').value, this.days)
       .subscribe(response => {
         if (response === null) {
           this.error = 'City is not found';

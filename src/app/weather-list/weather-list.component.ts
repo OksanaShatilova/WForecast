@@ -9,32 +9,49 @@ export class WeatherListComponent implements OnInit {
   @Input() forecast;
   constructor() {}
 
-  values: Array<string>;
-  value: string;
-  sortParameters: boolean;
+  parameters: object;
+  parameter: string;
+  sortParametersList: boolean;
   sortDirection: boolean;
+  objectKeysOfParameters: Array<string>;
 
   ngOnInit(): void {
-    this.sortParameters = false;
+    this.sortParametersList = false;
     this.sortDirection = false;
-    this.values = ['Date', 'Temperature'];
-    this.value = this.values[0];
+    this.parameters = {
+      Date: 'ts',
+      Temperature: 'temp'
+    };
+    this.objectKeysOfParameters = Object.keys(this.parameters);
+    this.parameter = this.objectKeysOfParameters[0];
   }
 
   showSortParameters() {
-    this.sortParameters = !this.sortParameters;
+    this.sortParametersList = !this.sortParametersList;
   }
 
   toggleSort(event: Event) {
     event.stopPropagation();
     this.sortDirection = !this.sortDirection;
-    if (this.sortParameters) {
+    if (this.sortParametersList) {
       this.showSortParameters();
     }
+    this.sortByParameter(this.parameter);
   }
 
-  sortBy(v: string) {
-    this.value = v;
+  sortByParameter(parameter: string, key?: string) {
+    if (key) {
+      this.parameter = key;
+    }
     this.showSortParameters();
+    this.forecast.data.sort((a, b) => {
+      if (a[parameter] > b[parameter]) {
+        return this.sortDirection ? -1 : 1;
+      }
+      if (a[parameter] < b[parameter]) {
+        return this.sortDirection ? 1 : -1;
+      }
+      return 0;
+    });
   }
 }

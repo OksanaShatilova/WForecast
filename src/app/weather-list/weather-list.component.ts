@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Forecast, ForecastService} from '../forecast.service';
+import {Forecast, ForecastService} from '../services/forecast.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ErrorNotificationService} from '../services/error-notification.service';
 import {Subscription} from 'rxjs';

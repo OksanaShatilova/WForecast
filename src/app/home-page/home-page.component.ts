@@ -12,9 +12,11 @@ export class HomePageComponent implements OnInit {
   cityName: string;
   constructor(private router: Router, private route: ActivatedRoute) {}
   ngOnInit() {
-    this.route.firstChild.params.subscribe((params) => {
-      this.cityName = params.city;
-    });
+    if (this.route.firstChild) {
+      this.route.firstChild.params.subscribe((params) => {
+        this.cityName = params.city;
+      });
+    }
     this.form = new FormGroup({
       city: new FormControl(this.cityName, [Validators.required])
     });

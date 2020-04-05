@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ForecastService} from '../forecast.service';
+import {Forecast, ForecastService} from '../forecast.service';
 import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
@@ -7,16 +7,16 @@ import {ActivatedRoute, Params} from '@angular/router';
   templateUrl: './weather-list.component.html',
   styleUrls: ['./weather-list.component.scss']
 })
+
 export class WeatherListComponent implements OnInit {
   constructor(private forecastService: ForecastService, private route: ActivatedRoute) {}
-
   parameters: object;
   parameterKey: string;
   sortParametersList: boolean;
   sortDirection: boolean;
-  forecast: object;
   days = 14;
   objectKeysOfParameters: Array<string>;
+  forecast: Forecast;
 
   ngOnInit(): void {
     this.sortParametersList = false;

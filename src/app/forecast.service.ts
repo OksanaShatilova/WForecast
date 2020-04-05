@@ -2,6 +2,18 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
+export interface DataItem {
+  ts: string;
+  temp: string;
+  datetime: string;
+  weather: object;
+}
+
+export interface Forecast {
+  data: [DataItem];
+  city_name: string;
+}
+
 @Injectable({providedIn: 'root'})
 export class ForecastService {
   constructor(private http: HttpClient) {

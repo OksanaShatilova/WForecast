@@ -7,6 +7,7 @@ const routes: Routes = [
   {path: '', component: HomePageComponent, children: [
       {path: ':city', component: WeatherListComponent}
       ]},
+  {path: '**', redirectTo: '/'}
 ];
 
 @NgModule({

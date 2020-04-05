@@ -21,10 +21,12 @@
       <p *ngIf="form.get('city').errors.required" class="validation">Please enter a city name</p>
     </div>
   </form>
-  <router-outlet></router-outlet>
+  <div *ngIf="!errorMessage">
+    <router-outlet></router-outlet>
+  </div>
 
-  <div class="message error">
-    <p>error</p>
+  <div *ngIf="errorMessage" class="message error">
+    <p>{{errorMessage}}</p>
   </div>
 </div>
 

@@ -7,11 +7,13 @@ export interface DataItem {
   temp: string;
   datetime: string;
   weather: object;
+  [propName: string]: any;
 }
 
 export interface Forecast {
   data: [DataItem];
   city_name: string;
+  [propName: string]: any;
 }
 
 @Injectable({providedIn: 'root'})

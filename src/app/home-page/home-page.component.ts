@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ErrorNotificationService} from '../services/error-notification.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -10,7 +12,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class HomePageComponent implements OnInit {
   form: FormGroup;
   cityName: string;
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  errorMessage: string;
+  errorSub: Subscription;
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private errorNotificationService: ErrorNotificationService) {}
   ngOnInit() {
     if (this.route.firstChild) {
       this.route.firstChild.params.subscribe((params) => {
@@ -20,9 +27,20 @@ export class HomePageComponent implements OnInit {
     this.form = new FormGroup({
       city: new FormControl(this.cityName, [Validators.required])
     });
+    this.errorSub = this.errorNotificationService.error$
+      .subscribe(error => {
+        this.errorMessage = error;
+      });
   }
 
   submit() {
+    this.errorMessage = '';
     this.router.navigate(['/', this.form.get('city').value]);
+  }
+
+  ngOnDestroy(): void {
+    if (this.errorSub) {
+      this.errorSub.unsubscribe();
+    }
   }
 }

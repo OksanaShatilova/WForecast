@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Forecast, ForecastService} from '../forecast.service';
 import {ActivatedRoute, Params} from '@angular/router';
+import {ErrorNotificationService} from '../services/error-notification.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-weather-list',
@@ -9,29 +11,39 @@ import {ActivatedRoute, Params} from '@angular/router';
 })
 
 export class WeatherListComponent implements OnInit {
-  constructor(private forecastService: ForecastService, private route: ActivatedRoute) {}
-  parameters: object;
+  constructor(
+    private forecastService: ForecastService,
+    private route: ActivatedRoute,
+    private errorNotificationService: ErrorNotificationService
+  ) {}
+
   parameterKey: string;
   sortParametersList: boolean;
   sortDirection: boolean;
+  forecastSub: Subscription;
   days = 14;
-  objectKeysOfParameters: Array<string>;
   forecast: Forecast;
+  parameters: object = {
+    Date: 'ts',
+    Temperature: 'temp'
+  };
+  objectKeysOfParameters = Object.keys(this.parameters);
 
   ngOnInit(): void {
     this.sortParametersList = false;
     this.sortDirection = false;
-    this.parameters = {
-      Date: 'ts',
-      Temperature: 'temp'
-    };
-    this.objectKeysOfParameters = Object.keys(this.parameters);
     this.parameterKey = this.objectKeysOfParameters[0];
     this.route.params.subscribe((params: Params) => {
-      this.forecast = null;
-      this.forecastService.getForecast(params.city, this.days)
+      const city = params.city;
+      this.forecastSub = this.forecastService.getForecast(city, this.days)
         .subscribe(response => {
-          this.forecast = response;
+          if (response === null) {
+            this.errorNotificationService.showErrorMessage(`City "${city}" is not found`);
+          } else {
+            this.forecast = response;
+          }
+        }, error => {
+          this.errorNotificationService.showErrorMessage(error.message);
         });
     });
   }
@@ -65,5 +77,11 @@ export class WeatherListComponent implements OnInit {
       }
       return 0;
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.forecastSub) {
+      this.forecastSub.unsubscribe();
+    }
   }
 }

@@ -14,7 +14,7 @@ export class WeatherListItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getDayOfWeek(data: string) {
+  getDayOfWeek(data: string): string {
     const day = new Date(data).getDay();
     return this.daysOfWeek[day];
   }

@@ -21,7 +21,7 @@ export class WeatherListComponent implements OnInit {
   sortParametersList: boolean;
   sortDirection: boolean;
   forecastSub: Subscription;
-  days = 14;
+  DAYS = 14;
   forecast: Forecast;
   parameters: object = {
     Date: 'ts',
@@ -35,7 +35,7 @@ export class WeatherListComponent implements OnInit {
     this.parameterKey = this.objectKeysOfParameters[0];
     this.route.params.subscribe((params: Params) => {
       const city = params.city;
-      this.forecastSub = this.forecastService.getForecast(city, this.days)
+      this.forecastSub = this.forecastService.getForecast(city, this.DAYS)
         .subscribe(response => {
           if (response === null) {
             this.errorNotificationService.showErrorMessage(`City "${city}" is not found`);

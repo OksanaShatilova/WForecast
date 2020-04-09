@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, OnDestroy {
   form: FormGroup;
   cityName: string;
   errorMessage: string;

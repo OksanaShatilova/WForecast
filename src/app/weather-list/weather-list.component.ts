@@ -10,7 +10,7 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./weather-list.component.scss']
 })
 
-export class WeatherListComponent implements OnInit {
+export class WeatherListComponent implements OnInit, OnDestroy {
   constructor(
     private forecastService: ForecastService,
     private route: ActivatedRoute,

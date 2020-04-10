@@ -3,6 +3,7 @@ import {Forecast, ForecastService} from '../services/forecast.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ErrorNotificationService} from '../services/error-notification.service';
 import {Subscription} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-weather-list',
@@ -22,6 +23,7 @@ export class WeatherListComponent implements OnInit, OnDestroy {
   sortDirection: boolean;
   forecastSub: Subscription;
   DAYS = 14;
+  city: string;
   forecast: Forecast;
   parameters: object = {
     Date: 'ts',
@@ -33,18 +35,19 @@ export class WeatherListComponent implements OnInit, OnDestroy {
     this.sortParametersList = false;
     this.sortDirection = false;
     this.parameterKey = this.objectKeysOfParameters[0];
-    this.route.params.subscribe((params: Params) => {
-      const city = params.city;
-      this.forecastSub = this.forecastService.getForecast(city, this.DAYS)
-        .subscribe(response => {
-          if (response === null) {
-            this.errorNotificationService.showErrorMessage(`City "${city}" is not found`);
-          } else {
-            this.forecast = response;
-          }
-        }, error => {
-          this.errorNotificationService.showErrorMessage(error.message);
-        });
+    this.route.params.pipe(
+      switchMap(params => {
+        this.city = params.city;
+        return this.forecastService.getForecast(this.city, this.DAYS);
+      })
+    ).subscribe(response => {
+      if (response === null) {
+        this.errorNotificationService.showErrorMessage(`City "${this.city}" is not found`);
+      } else {
+        this.forecast = response;
+      }
+    }, error => {
+      this.errorNotificationService.showErrorMessage(error.message);
     });
   }
 

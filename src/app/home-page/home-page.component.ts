@@ -35,7 +35,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   submit() {
     this.errorMessage = '';
-    this.router.navigate(['/', this.form.get('city').value]);
+    this.cityName = this.form.get('city').value;
+    this.router.navigate(['/', this.cityName]);
   }
 
   ngOnDestroy(): void {

@@ -5,14 +5,11 @@ import {Component, Input, OnInit} from '@angular/core';
   templateUrl: './weather-list-item.component.html',
   styleUrls: ['./weather-list-item.component.scss']
 })
-export class WeatherListItemComponent implements OnInit {
+export class WeatherListItemComponent {
   @Input() day;
   daysOfWeek: Array<string> = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   getDayOfWeek(data: string): string {
     const day = new Date(data).getDay();
